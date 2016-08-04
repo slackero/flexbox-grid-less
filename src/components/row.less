@@ -1,11 +1,11 @@
-.row {
+.flexrow {
   box-sizing: border-box;
   display: flex;
   flex: 0 1 100%;
   flex-direction: row;
   flex-wrap: wrap;
   list-style: none;
-  margin: -1rem -.5rem 1rem -.5rem;
+  margin: -(@flex-grid-gutter-width) -(@flex-grid-gutter-width/2) @flex-grid-gutter-width -(@flex-grid-gutter-width/2);
   padding: 0;
 
   &:last-child {

@@ -1,13 +1,13 @@
-.make-default() {
+.make-flex-default() {
   & {
     flex-grow: 1;
     flex-basis: 0;
     max-width: 100%;
-    padding: 1rem .5rem 0 .5rem;
+    padding: @flex-grid-gutter-width (@flex-grid-gutter-width/2) 0 (@flex-grid-gutter-width/2);
   }
 }
 
-.make-offset(@columns) {
+.make-flex-offset(@columns) {
   .for(@columns);
   .-each(@number) {
     &-offset-@{number} {
@@ -16,7 +16,7 @@
   }
 }
 
-.make-column(@columns) {
+.make-flex-column(@columns) {
   .for(@columns);
   .-each(@number) {
     &-@{number} {
@@ -26,19 +26,19 @@
   }
 }
 
-.make-grid-column(@breakpoint, @columns) {
-  .make-helpers(@breakpoint);
-  .col--@{breakpoint} {
-    .make-default();
-    .make-column(@columns);
-    .make-offset(@columns);
+.make-flex-grid-column(@breakpoint, @columns) {
+  .make-flex-helpers(@breakpoint);
+  .flexcol-@{breakpoint} {
+    .make-flex-default();
+    .make-flex-column(@columns);
+    .make-flex-offset(@columns);
   }
 }
 
-.make-column(@breakpoint, @columns) {
+.make-flex-column(@breakpoint, @columns) {
   @breakpoint_temp : extract(@breakpoint, 1);
 
-  .col--@{breakpoint_temp} {
+  .flexcol-@{breakpoint_temp} {
     .for(@columns);
     .-each(@number) {
       &-@{number} {
@@ -49,18 +49,18 @@
   }
 }
 
-.init(@breakpoints, @columns) {
+.init-flex(@breakpoints, @columns) {
   .for(@breakpoints);
   .-each(@breakpoint) {
     @size : extract(@breakpoint, 1);
     @width : extract(@breakpoint, 2);
 
     & when (@width = 0) {
-      .make-grid-column(@size, @columns);
+      .make-flex-grid-column(@size, @columns);
     }
     & when (@width > 0) {
       @media (min-width: @width) {
-        .make-grid-column(@size, @columns);
+        .make-flex-grid-column(@size, @columns);
       }
     }
   }
